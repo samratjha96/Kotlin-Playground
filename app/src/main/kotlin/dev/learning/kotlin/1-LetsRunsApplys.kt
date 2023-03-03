@@ -12,55 +12,59 @@ fun main() {
     println(a)
 
     // Null checking let
-    var name : String? = "Kotlin let null check"
-    name?.let { println("I should not print") }
-    name = null
-    name?.let { println("I should print") }
+
+//    var name : String? = "Kotlin let null check"
+//    name?.let { println("I should not print") }
+//    name = null
+//    name?.let { println("I should print") }
 
     // Combining let and run
-    var someString : String? = null
-    someString?.let { println("String is defined") } ?: run {
-        println("String was null. Setting default value to Kotlin")
-        someString = "Kotlin"
-    }
-    println(someString)
+
+//    var someString : String? = null
+//    someString?.let { println("String is defined") } ?: run {
+//        println("String was null. Setting default value to Kotlin")
+//        someString = "Kotlin"
+//    }
+//    println(someString)
 
     // Let vs also (Quiz time)
-    var person = Person("Kotlin", "People")
-
-    var withLet = person.let { it.type = "Kuties" }
-    var withAlso = person.also { it.type = "Kuties" }
-
-    println(withLet)
-    println(withAlso)
+//    var person = Person("Kotlin", "People")
+//
+//    var withLet = person.let { it.type = "Kuties" }
+//    var withAlso = person.also { it.type = "Kuties" }
+//
+//    println(withLet)
+//    println(withAlso)
 
     // Run vs apply vs also
-    val password = PasswordGenerator().run {
-        seed = "overriddenSeed"
-        hash = { str: String -> "overriddenHash $str"}
-        repetition= 5
-        generate()
-    }
-    println(password)
 
-    val generator = PasswordGenerator().apply {
-        seed = "someString"
-        repetition = 1000
-    }
-    println(generator.generate())
-
-    val alsoGenerator = PasswordGenerator().also {
-        println("The seed is ${it.seed}")
-    }.generate()
-    println(alsoGenerator)
+//    val password = PasswordGenerator().run {
+//        seed = "overriddenSeed"
+//        hash = { str: String -> "overriddenHash $str"}
+//        repetition= 5
+//        generate()
+//    }
+//    println(password)
+//
+//    val generator = PasswordGenerator().apply {
+//        seed = "someString"
+//        repetition = 1000
+//    }
+//    println(generator.generate())
+//
+//    val alsoGenerator = PasswordGenerator().also {
+//        println("The seed is ${it.seed}")
+//    }.generate()
+//    println(alsoGenerator)
 
     // Take if and Take unless
-    val apple = Apple("RED")
-    val redApple = apple.takeIf { it.color == "RED" }
-    val otherApple = apple.takeUnless { it.color == "RED" }
 
-    println(redApple)
-    println(otherApple)
+//    val apple = Apple("RED")
+//    val redApple = apple.takeIf { it.color == "RED" }
+//    val otherApple = apple.takeUnless { it.color == "RED" }
+//
+//    println(redApple)
+//    println(otherApple)
 }
 
 class PasswordGenerator {

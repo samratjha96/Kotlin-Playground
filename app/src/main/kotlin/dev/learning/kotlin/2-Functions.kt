@@ -1,10 +1,12 @@
 package dev.learning.kotlin
 
 import java.util.Observable
+import kotlin.system.measureNanoTime
 
 fun main() {
 
     // Varargs
+
     fun asList(vararg strings: String): List<String> {
         val list = mutableListOf<String>()
         list.addAll(strings)
@@ -15,8 +17,8 @@ fun main() {
     println(asList("Test", "test2", *otherList))
 
     // Single expression functions
-    fun double(x: Int): Int = x * 2
-    println(double(2))
+//    fun double(x: Int): Int = x * 2
+//    println(double(2))
 
     // Infix functions
     /**
@@ -28,44 +30,64 @@ fun main() {
 
         The parameter must not accept variable number of arguments and must have no default value.
      */
-    infix fun <T> Boolean.then(param: T): T? = if (this) param else null
-
-    println((2 + 2 == 4) then "yes" ?: "no")
-
-    val car = Car()
-    car turn TurnDirection.left then TurnDirection.right
-
-    // Higher order functions
-    fun rollDice(
-        range: IntRange,
-        time: Int,
-        callback: (result: Int) -> Unit
-    ) {
-        for (i in 0 until time) {
-            val result = range.random()
-            //As the last parameter is a function
-            //we can call it as a function
-            callback(result)
-        }
-    }
-    rollDice(0..6, 3) { result ->
-        println(result)
-    }
+//    infix fun <T> Boolean.then(param: T): T? = if (this) param else null
+//
+//    println((2 + 2 == 4) then "yes" ?: "no")
+//
+//    val car = Car()
+//    car turn TurnDirection.left then TurnDirection.right
+//
+//    // Higher order functions
+//    fun rollDice(
+//        range: IntRange,
+//        time: Int,
+//        callback: (result: Int) -> Unit
+//    ) {
+//        for (i in 0 until time) {
+//            val result = range.random()
+//            //As the last parameter is a function
+//            //we can call it as a function
+//            callback(result)
+//        }
+//    }
+//    rollDice(0..6, 3) { result ->
+//        println(result)
+//    }
 
     // Operator Overloading
-    println(Counter(2) + 5)
-    println(Counter("2") + 5)
-    println(Counter("2").not())
+
+//    println(Counter(2) + 5)
+//    println(Counter("2") + 5)
+//    println(Counter("2").not())
 
 
     // Local returns
-    fun foo() {
-        listOf(1,2)
-            .map{ intValue ->
-                return@map intValue.toString()
-            }
-    }
-    foo()
+
+//    fun foo() {
+//        listOf(1,2)
+//            .map{ intValue ->
+//                return@map intValue.toString()
+//            }
+//    }
+//    foo()
+
+    // Cache functions
+
+//    fun <In, Out> cached(f: (In) -> Out): (In) -> Out {
+//        val cache = mutableMapOf<In, Out>()
+//
+//        return { input: In ->
+//            cache.computeIfAbsent(input, f)
+//        }
+//    }
+//
+//    val cachedCos = cached { x: Double -> Math.cos(x) }
+//
+//    println(measureNanoTime { cachedCos(Math.PI * 2) })
+//
+//    /* value of cos for 2pi is now cached */
+//
+//    println(measureNanoTime { cachedCos(Math.PI * 2) })
 }
 
 enum class TurnDirection { left, right }

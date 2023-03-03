@@ -3,12 +3,69 @@
  */
 package dev.learning.kotlin
 
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.junit5.MockKExtension
+import io.mockk.mockk
+import io.mockk.mockkConstructor
+import io.mockk.verify
+import io.mockk.verifySequence
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.extension.RegisterExtension
 import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.assertEquals
 
-class AppTest {
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class MockKTest {
+    private lateinit var ec2ClientUser: Ec2ClientUser
+    private lateinit var mockClient: Ec2Client
+
+    @BeforeEach
+    fun setup() {
+        mockClient = mockk(relaxed = true)
+        ec2ClientUser = Ec2ClientUser(mockClient)
+    }
     @Test
-    fun appHasAGreeting() {
-        assertNotNull("hi")
+    fun `verify every call`() {
+        ec2ClientUser.doThing()
+        verify(exactly = 1) {
+            mockClient.createInstance()
+        }
+//        confirmVerified(mockClient)
+    }
+
+    @Test
+    fun `verify order of calls`() {
+        ec2ClientUser.doThing()
+        io.mockk.verifyOrder {
+            mockClient.createInstance()
+            mockClient.deleteInstance()
+        }
+    }
+
+    @Test
+    fun `verify sequence`() {
+        verifySequence {
+            mockClient.createInstance()
+            mockClient.deleteInstance()
+            mockClient.deleteInstance()
+        }
+    }
+
+    @Test
+    fun `mock constructor`() {
+        class MockCls {
+            fun add(a: Int, b: Int) = a + b
+        }
+
+        mockkConstructor(MockCls::class)
+
+        every { anyConstructed<MockCls>().add(1, 2) } returns 4
+
+        assertEquals(4, MockCls().add(1, 2)) // note new object is created
+
+        verify { anyConstructed<MockCls>().add(1, 2) }
     }
 }
