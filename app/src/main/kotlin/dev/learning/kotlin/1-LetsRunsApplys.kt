@@ -53,6 +53,14 @@ fun main() {
         println("The seed is ${it.seed}")
     }.generate()
     println(alsoGenerator)
+
+    // Take if and Take unless
+    val apple = Apple("RED")
+    val redApple = apple.takeIf { it.color == "RED" }
+    val otherApple = apple.takeUnless { it.color == "RED" }
+
+    println(redApple)
+    println(otherApple)
 }
 
 class PasswordGenerator {
@@ -65,3 +73,5 @@ class PasswordGenerator {
     }
 }
 data class Person(var name : String? = null, var type : String? = null)
+
+data class Apple(val color: String)
