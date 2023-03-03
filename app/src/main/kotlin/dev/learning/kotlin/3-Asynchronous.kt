@@ -134,12 +134,11 @@ internal class SuspendedFunctionsAsync {
 }
 
 fun main() {
-//    SimpleAsync().main()
-//
-//    MultipleSuspendingFunctions().main()
-//
-//    LightweightCoroutines().main()
+    SimpleAsync().main()
 
+    MultipleSuspendingFunctions().main()
+
+    LightweightCoroutines().main()
 
     /**
      * A suspending function asynchronously returns a single value, but how can we return multiple asynchronously computed values? This is where Kotlin Flows come in.
